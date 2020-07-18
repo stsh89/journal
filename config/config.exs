@@ -10,6 +10,8 @@ use Mix.Config
 config :journal,
   ecto_repos: [Journal.Repo]
 
+config :journal, Journal.Repo, migration_timestamps: [type: :timestamptz]
+
 # Configures the endpoint
 config :journal, JournalWeb.Endpoint,
   url: [host: "localhost"],
