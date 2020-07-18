@@ -6,7 +6,6 @@ defmodule Journal.Repo.Migrations.CreateUsers do
       add :name, :string, null: false, default: ""
       add :nickname, :string, null: false, default: ""
       add :slug, :string, null: false, default: ""
-      add :password_salt, :string, null: false, default: ""
       add :password_hash, :string, null: false, default: ""
 
       timestamps()

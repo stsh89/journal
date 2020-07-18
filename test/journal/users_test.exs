@@ -6,8 +6,8 @@ defmodule Journal.UsersTest do
   describe "users" do
     alias Journal.Users.User
 
-    @valid_attrs %{name: "some name", nickname: "some nickname", password_hash: "some password_hash", password_salt: "some password_salt", slug: "some slug"}
-    @invalid_attrs %{name: nil, nickname: nil, password_hash: nil, password_salt: nil, slug: nil}
+    @valid_attrs %{name: "some name", nickname: "some nickname", password_hash: "some password_hash", slug: "some slug"}
+    @invalid_attrs %{name: nil, nickname: nil, password_hash: nil, slug: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -23,7 +23,6 @@ defmodule Journal.UsersTest do
       assert user.name == "some name"
       assert user.nickname == "some nickname"
       assert user.password_hash == "some password_hash"
-      assert user.password_salt == "some password_salt"
       assert user.slug == "some slug"
     end
 
