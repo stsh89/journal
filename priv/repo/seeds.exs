@@ -18,7 +18,6 @@ if Repo.aggregate(User, :count, :id) == 0 do
 
   Users.create_user(%{
     name: "Stan",
-    nickname: "stan",
     password_hash: password_hash,
     slug: "stan"
   })

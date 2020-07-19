@@ -4,7 +4,6 @@ defmodule Journal.Users.User do
 
   schema "users" do
     field :name, :string
-    field :nickname, :string
     field :password_hash, :string
     field :slug, :string
 
@@ -14,9 +13,8 @@ defmodule Journal.Users.User do
   @doc false
   def registration_changeset(user, attrs) do
     user
-    |> cast(attrs, [:name, :nickname, :slug, :password_hash])
-    |> validate_required([:name, :nickname, :slug, :password_hash])
-    |> unique_constraint(:nickname)
+    |> cast(attrs, [:name, :slug, :password_hash])
+    |> validate_required([:name, :slug, :password_hash])
     |> unique_constraint(:slug)
   end
 end
