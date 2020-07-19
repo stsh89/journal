@@ -12,7 +12,7 @@ database_url =
     """
 
 config :journal, Journal.Repo,
-  # ssl: true,
+  ssl: true,
   url: database_url,
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
 
@@ -29,6 +29,10 @@ config :journal, JournalWeb.Endpoint,
     transport_options: [socket_opts: [:inet6]]
   ],
   secret_key_base: secret_key_base
+
+config :journal, JournalWeb.Guardian,
+       issuer: "journal",
+       secret_key: secret_key_base
 
 # ## Using releases (Elixir v1.9+)
 #
