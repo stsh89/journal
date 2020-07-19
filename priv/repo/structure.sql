@@ -21,6 +21,38 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: credentials; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.credentials (
+    id bigint NOT NULL,
+    login character varying(255) DEFAULT ''::character varying NOT NULL,
+    password_hash character varying(255) DEFAULT ''::character varying NOT NULL,
+    inserted_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: credentials_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.credentials_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: credentials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.credentials_id_seq OWNED BY public.credentials.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -31,44 +63,18 @@ CREATE TABLE public.schema_migrations (
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
+-- Name: credentials id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-CREATE TABLE public.users (
-    id bigint NOT NULL,
-    name character varying(255) DEFAULT ''::character varying NOT NULL,
-    nickname character varying(255) DEFAULT ''::character varying NOT NULL,
-    slug character varying(255) DEFAULT ''::character varying NOT NULL,
-    password_hash character varying(255) DEFAULT ''::character varying NOT NULL,
-    inserted_at timestamp with time zone NOT NULL,
-    updated_at timestamp with time zone NOT NULL
-);
+ALTER TABLE ONLY public.credentials ALTER COLUMN id SET DEFAULT nextval('public.credentials_id_seq'::regclass);
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: credentials credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
-
-
---
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+ALTER TABLE ONLY public.credentials
+    ADD CONSTRAINT credentials_pkey PRIMARY KEY (id);
 
 
 --
@@ -80,29 +86,14 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: credentials_login_index; Type: INDEX; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: users_nickname_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX users_nickname_index ON public.users USING btree (nickname);
-
-
---
--- Name: users_slug_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX users_slug_index ON public.users USING btree (slug);
+CREATE UNIQUE INDEX credentials_login_index ON public.credentials USING btree (login);
 
 
 --
 -- PostgreSQL database dump complete
 --
 
-INSERT INTO public."schema_migrations" (version) VALUES (20200718143742);
+INSERT INTO public."schema_migrations" (version) VALUES (20200719072435);
