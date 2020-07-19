@@ -13,12 +13,22 @@ defmodule JournalWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug JournalWeb.Plugs.AuthPlug
+  end
+
+  scope "/", JournalWeb do
+    pipe_through [:browser, :auth]
+
+    get "/", NoteController, :index
+    resources "/notes", NoteController
+    resources "/sessions", SessionController, only: [:delete]
+  end
+
   scope "/", JournalWeb do
     pipe_through :browser
 
-    get "/", SessionController, :new
-    resources "/notes", NoteController
-    resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/sessions", SessionController, only: [:new, :create]
   end
 
   # Other scopes may use custom stacks.

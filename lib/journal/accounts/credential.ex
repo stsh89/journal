@@ -14,5 +14,6 @@ defmodule Journal.Accounts.Credential do
     credential
     |> cast(attrs, [:login, :password_hash])
     |> validate_required([:login, :password_hash])
+    |> unique_constraint(:login)
   end
 end

@@ -5,14 +5,21 @@ defmodule JournalWeb.SessionController do
   alias JournalWeb.Sessions.Session
 
   def new(conn, _params) do
+    if conn |> get_session(:token) do
+      conn
+      |> redirect(to: "/")
+      |> halt()
+    end
+
     changeset = Sessions.change_session(%Session{})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"session" => session_params}) do
     case Sessions.create_session(session_params) do
-      {:ok, note} ->
+      {:ok, session} ->
         conn
+        |> put_session(:token, session.token)
         |> put_flash(:info, "Session created successfully.")
         |> redirect(to: Routes.note_path(conn, :index))
 

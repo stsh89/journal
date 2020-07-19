@@ -7,6 +7,10 @@
 # General application configuration
 use Mix.Config
 
+config :journal, JournalWeb.Guardian,
+       issuer: "journal",
+       secret_key: "6Z6c4ZzoyRRU/r3EWLw19wlYfsj6Ono+X6ya+Ndi6FG+uTcUm0iHMmWqa6YBIbZL"
+
 config :journal,
   ecto_repos: [Journal.Repo]
 

@@ -9,4 +9,9 @@ defmodule Journal.Accounts do
     |> Credential.changeset(attrs)
     |> Repo.insert()
   end
+
+  def get_credential_by(attrs) do
+    Credential
+    |> Repo.get_by(attrs)
+  end
 end
