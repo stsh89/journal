@@ -53,6 +53,38 @@ ALTER SEQUENCE public.credentials_id_seq OWNED BY public.credentials.id;
 
 
 --
+-- Name: notes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.notes (
+    id bigint NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    description text DEFAULT ''::text NOT NULL,
+    inserted_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.notes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.notes_id_seq OWNED BY public.notes.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -70,11 +102,26 @@ ALTER TABLE ONLY public.credentials ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
+-- Name: notes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notes ALTER COLUMN id SET DEFAULT nextval('public.notes_id_seq'::regclass);
+
+
+--
 -- Name: credentials credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.credentials
     ADD CONSTRAINT credentials_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notes notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.notes
+    ADD CONSTRAINT notes_pkey PRIMARY KEY (id);
 
 
 --
@@ -97,3 +144,4 @@ CREATE UNIQUE INDEX credentials_login_index ON public.credentials USING btree (l
 --
 
 INSERT INTO public."schema_migrations" (version) VALUES (20200719072435);
+INSERT INTO public."schema_migrations" (version) VALUES (20200719074504);
