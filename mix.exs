@@ -46,7 +46,8 @@ defmodule Journal.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:bcrypt_elixir, "~> 2.2.0"},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:phoenix_html_simplified_helpers, "~> 2.1.0"}
     ]
   end
 

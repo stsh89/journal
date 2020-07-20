@@ -13,7 +13,7 @@
 <%= for note <- @notes do %>
     <tr>
       <td><%= note.name %></td>
-      <td><%= note.description %></td>
+      <td><%= truncate(note.description) %></td>
 
       <td>
         <span><%= link "Show", to: Routes.note_path(@conn, :show, note) %></span>
