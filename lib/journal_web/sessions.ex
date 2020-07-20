@@ -1,7 +1,6 @@
 defmodule JournalWeb.Sessions do
   import Ecto.Query, warn: false
 
-  alias Journal.Repo
   alias Ecto.Changeset
   alias JournalWeb.Sessions.Session
 

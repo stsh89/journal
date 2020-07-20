@@ -8,7 +8,7 @@ defmodule JournalWeb.Plugs.AuthPlug do
 
   def call(conn, _) do
     case Guardian.resource_from_token(Conn.get_session(conn, :token)) do
-      {:ok, resource, _claims} ->
+      {:ok, _resource, _claims} ->
         conn
       _ ->
         conn

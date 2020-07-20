@@ -29,6 +29,7 @@ defmodule JournalWeb do
 
   def view do
     quote do
+      use Phoenix.HTML.SimplifiedHelpers
       use Phoenix.View,
         root: "lib/journal_web/templates",
         namespace: JournalWeb
