@@ -18,7 +18,8 @@ defmodule Journal.Notebooks do
 
   """
   def list_notes do
-    Repo.all(Note)
+    from(n in Note, order_by: [desc: n.inserted_at])
+    |> Repo.all
   end
 
   @doc """
