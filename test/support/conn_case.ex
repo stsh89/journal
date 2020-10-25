@@ -31,6 +31,16 @@ defmodule JournalWeb.ConnCase do
     end
   end
 
+  @default_opts [
+    store: :cookie,
+    key: "foobar",
+    encryption_salt: "encrypted cookie salt",
+    signing_salt: "signing salt",
+    log: false
+  ]
+
+  @signing_opts Plug.Session.init(Keyword.put(@default_opts, :encrypt, false))
+
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Journal.Repo)
 
@@ -38,6 +48,24 @@ defmodule JournalWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Journal.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    conn =
+      if tags[:authenticated] do
+        {:ok, c} =
+          Journal.Accounts.create_credential(%{
+            login: "stan",
+            password_hash: Bcrypt.add_hash("password") |> Map.get(:password_hash)
+          })
+
+        {:ok, token, _claims} = JournalWeb.Guardian.encode_and_sign(c)
+
+        Phoenix.ConnTest.build_conn()
+        |> Plug.Session.call(@signing_opts)
+        |> Plug.Conn.fetch_session
+        |> Plug.Conn.put_session(:token, token)
+      else
+        Phoenix.ConnTest.build_conn()
+      end
+
+    {:ok, conn: conn}
   end
 end
