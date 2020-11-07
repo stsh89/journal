@@ -22,7 +22,7 @@ defmodule JournalWeb.Router do
 
     get "/", NoteController, :index
     resources "/notes", NoteController
-    resources "/sessions", SessionController, only: [:delete]
+    delete "/sessions", SessionController, :delete
   end
 
   scope "/", JournalWeb do
