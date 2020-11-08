@@ -19,6 +19,8 @@
             <% end %>
             <%= if @conn |> Plug.Conn.get_session(:token) do %>
               <li><%= link "Sign out", to: Routes.session_path(@conn, :delete), method: :delete %></li>
+            <% else %>
+              <li><%= link "Sign in", to: Routes.session_path(@conn, :new) %></li>
             <% end %>
           </ul>
         </nav>
