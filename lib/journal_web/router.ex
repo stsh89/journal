@@ -29,6 +29,7 @@ defmodule JournalWeb.Router do
     pipe_through :browser
 
     resources "/sessions", SessionController, only: [:new, :create]
+    resources "/shared", SharedNoteController, only: [:show]
   end
 
   # Other scopes may use custom stacks.
