@@ -39,6 +39,22 @@ defmodule Journal.Notebooks do
   def get_note!(id), do: Repo.get!(Note, id)
 
   @doc """
+  Gets a single shared note.
+
+  Raises `Ecto.NoResultsError` if the Note does not exist.
+
+  ## Examples
+
+      iex> get_shared_note!("sharing-code")
+      %Note{}
+
+      iex> get_shared_note!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_shared_note!(sharing_code), do: Repo.get_by!(Note, sharing_code: sharing_code)
+
+  @doc """
   Creates a note.
 
   ## Examples

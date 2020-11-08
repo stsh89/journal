@@ -5,6 +5,7 @@ defmodule Journal.Notebooks.Note do
   schema "notes" do
     field :description, :string
     field :name, :string
+    field :sharing_code, :string
 
     timestamps(type: :utc_datetime)
   end

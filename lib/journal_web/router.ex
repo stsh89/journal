@@ -22,6 +22,7 @@ defmodule JournalWeb.Router do
 
     get "/", NoteController, :index
     resources "/notes", NoteController
+    resources "/shared_notes", SharedNoteController, only: [:create, :delete]
     delete "/sessions", SessionController, :delete
   end
 
@@ -29,7 +30,7 @@ defmodule JournalWeb.Router do
     pipe_through :browser
 
     resources "/sessions", SessionController, only: [:new, :create]
-    resources "/shared", SharedNoteController, only: [:show]
+    resources "/shared", SharedNoteController, only: [:show], param: "sharing_code"
   end
 
   # Other scopes may use custom stacks.

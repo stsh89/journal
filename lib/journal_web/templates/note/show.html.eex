@@ -12,7 +12,20 @@
     <%= @note.description %>
   </li>
 
+  <%= if shared_note?(@note) do %>
+    <li>
+      <strong>Shared link:</strong>
+      <%= link @note.sharing_code, to: Routes.shared_note_path(@conn, :show, @note.sharing_code) %>
+      <%= link "⨯", to: Routes.shared_note_path(@conn, :delete, @note), method: :delete %>
+    </li>
+  <% end %>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.note_path(@conn, :edit, @note) %></span>
+
+<%= if !shared_note?(@note) do %>
+  <span><%= link "Share", to: Routes.shared_note_path(@conn, :create, note_id: @note), method: :post %></span>
+<% end %>
+
 <span><%= link "Back", to: Routes.note_path(@conn, :index) %></span>
