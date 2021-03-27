@@ -2,6 +2,7 @@ FROM elixir:1.11.4
 
 ARG db_url
 ARG secret_key
+ARG host
 
 ENV DATABASE_URL=$db_url
 ENV SECRET_KEY_BASE=$secret_key
