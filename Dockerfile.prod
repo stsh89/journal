@@ -19,7 +19,7 @@ RUN apt-get update \
   && apt-get install --yes nodejs
 
 RUN mix local.hex --force && mix local.rebar --force
-RUN mix do deps.get --only prod, deps.compile
+RUN mix do deps.get --only $MIX_ENV, deps.compile
 
 RUN npm install --prefix ./assets
 RUN npm run deploy --prefix ./assets
