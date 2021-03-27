@@ -1,4 +1,4 @@
-defmodule Jounral.Release do
+defmodule Journal.Release do
   @app :journal
 
   def migrate do

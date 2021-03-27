@@ -25,4 +25,4 @@ RUN mix phx.digest
 
 RUN mix do compile, release
 
-CMD bin/journal eval "Journal.Release.migrate" && bin/journal start
+CMD ["./start_prod.sh"]
