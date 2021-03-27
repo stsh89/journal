@@ -5,6 +5,7 @@ ARG secret_key
 
 ENV DATABASE_URL=$db_url
 ENV SECRET_KEY_BASE=$secret_key
+ENV HOST=$host
 ENV POOL_SIZE=2
 ENV MIX_ENV=prod
 
