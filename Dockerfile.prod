@@ -1,10 +1,12 @@
-FROM elixir:1.11.1
+FROM elixir:1.11.4
 
 ARG db_url
 ARG secret_key
+ARG host
 
 ENV DATABASE_URL=$db_url
 ENV SECRET_KEY_BASE=$secret_key
+ENV HOST=$host
 ENV POOL_SIZE=2
 ENV MIX_ENV=prod
 
@@ -16,12 +18,13 @@ RUN apt-get update \
   && curl -sL https://deb.nodesource.com/setup_14.x | bash - \
   && apt-get install --yes nodejs
 
-RUN mix local.hex --force
-RUN mix local.rebar --force
-RUN mix deps.get --only prod
-RUN mix compile
+RUN mix local.hex --force && mix local.rebar --force
+RUN mix do deps.get --only prod, deps.compile
+
 RUN npm install --prefix ./assets
 RUN npm run deploy --prefix ./assets
 RUN mix phx.digest
 
-CMD mix local.hex --force && mix ecto.migrate && mix phx.server
+RUN mix do compile, release
+
+CMD ["./start_prod.sh"]
