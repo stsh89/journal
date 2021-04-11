@@ -1,4 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 
-_build/prod/rel/journal/bin/journal eval "Journal.Release.migrate" &&
-  _build/prod/rel/journal/bin/journal start
+/app/bin/journal eval "Journal.Release.migrate" && /app/bin/journal start
