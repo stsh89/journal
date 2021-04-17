@@ -12,6 +12,7 @@ defmodule JournalWeb.Plugs.AuthPlug do
         conn
       _ ->
         conn
+        |> Conn.delete_session(:token)
         |> Controller.redirect(to: Routes.session_path(conn, :new))
         |> Conn.halt()
     end
