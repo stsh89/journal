@@ -15,10 +15,8 @@
           <ul>
             <li><a href="/">Home</a></li>
             <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+            <%= if @conn.assigns[:credential] do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-            <%= if @conn |> Plug.Conn.get_session(:token) do %>
               <li><%= link "Sign out", to: Routes.session_path(@conn, :delete), method: :delete %></li>
             <% end %>
           </ul>
