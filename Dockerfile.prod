@@ -33,7 +33,7 @@ RUN npm run deploy --prefix ./assets
 RUN mix phx.digest
 RUN mix do compile, release
 
-FROM alpine:3.13.4 as app
+FROM alpine:3.13.5 as app
 
 RUN apk add --no-cache openssl ncurses-libs
 RUN mkdir /app
